@@ -1,0 +1,25 @@
+
+services:
+  backend:
+    build: ./backend
+    container_name: flask-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - FLASK_ENV=development
+
+  frontend:
+    build: ./frontend
+    container_name: nuxt-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3000
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend
